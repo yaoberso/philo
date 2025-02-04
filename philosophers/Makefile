@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 NAME	= pushswap
-CFLAGS	= -Wall -Wextra -Werror -Iprintf -g
+CFLAGS	= -Wall -Wextra -Werror -Iprintf -g -pthread
 CC		= gcc
 OBJS 	= $(SRCS:.c=.o)
 

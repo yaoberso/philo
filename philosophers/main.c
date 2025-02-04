@@ -2,9 +2,11 @@
 
 int main(int argc, char **argv)
 {
-	int nb_philo;
-	int temp_mort;
-	int temp_rep;
-	int temp_som;
-	int rep_min;
+	t_philo *philo;
+
+	if (argc != 6)
+		return (0);
+	init_philo(philo, argv);
+	init_philosophes(philo);
+	
 }
