@@ -6,7 +6,7 @@
 /*   By: yaoberso <yaoberso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 13:12:07 by yaoberso          #+#    #+#             */
-/*   Updated: 2025/02/04 13:29:36 by yaoberso         ###   ########.fr       */
+/*   Updated: 2025/02/06 13:32:18 by yaoberso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 #include <sys/wait.h>
 #include <signal.h>
 #include <pthread.h>
-#include "printf/ft_printf.h"
 
 typedef struct s_philosophe t_philosophe;
 
@@ -56,15 +55,23 @@ typedef struct s_philosophe
     long long       last_meal_time;
     t_etat          etat;
     pthread_mutex_t mutex;
+    pthread_mutex_t meal_mutex;
     pthread_t       thread;
     t_philo         *data;
 }   t_philosophe;
 
+void print_message(t_philosophe *philosophe, char *message);
+void init_thread(t_philo *philo);
+void prendre_fourchette(t_philosophe *philosophe);
+void relacher_fourchette(t_philosophe *philosophe);
+void dormir(t_philosophe *philosophes);
+int manger(t_philosophe *philosophes);
+void penser(t_philosophe *philosophes);
 int	ft_atoi(char *str);
 void init_philo(t_philo *philo, char **argv);
 void init_philosophes(t_philo *philo);
-void routine_philo(t_philo *philo);
-int check_death(t_philo *philo);
+void *routine_philo(void *arg);
+int check_death(t_philosophe *philosophe);
 long long get_time(void);
 
 #endif

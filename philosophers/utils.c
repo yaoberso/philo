@@ -37,3 +37,11 @@ long long get_time(void)
     time = (long long)tv.tv_sec * 1000 + tv.tv_usec / 1000;
     return (time);
 }
+
+void print_message(t_philosophe *philosophe, char *message)
+{
+    pthread_mutex_lock(&philosophe->data->print_mutex);
+    if (!check_death(philosophe))
+        printf("%lld %d %s\n", (get_time() - philosophe->data->start_time), (philosophe->id + 1), message);
+    pthread_mutex_unlock(&philosophe->data->print_mutex);
+}

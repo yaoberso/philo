@@ -10,22 +10,18 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= pushswap
+NAME	= philosophers
 CFLAGS	= -Wall -Wextra -Werror -Iprintf -g -pthread
 CC		= gcc
 OBJS 	= $(SRCS:.c=.o)
 
 # FICHIERS SOURCES
-SRCS	=	printf/ft_printf.c \
-			printf/ft_putchar.c \
-			printf/ft_puthex_lower.c \
-			printf/ft_puthex_upper.c \
-			printf/ft_putnbr.c \
-			printf/ft_putpointer.c \
-			printf/ft_putstr.c \
-			printf/ft_putunsint.c \
-			main.c \
+SRCS	=	main.c \
 			utils.c \
+			check.c \
+			etat.c \
+			routine.c \
+			init.c \
 
 # REGLES
 all: $(NAME)
