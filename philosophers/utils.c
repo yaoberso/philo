@@ -38,10 +38,27 @@ long long get_time(void)
     return (time);
 }
 
+// void print_message(t_philosophe *philosophe, char *message)
+// {
+//     pthread_mutex_lock(&philosophe->data->print_mutex);
+//     if (!check_death(philosophe))
+//         printf("%lld %d %s\n", (get_time() - philosophe->data->start_time), (philosophe->id + 1), message);
+//     pthread_mutex_unlock(&philosophe->data->print_mutex);
+// }
+
 void print_message(t_philosophe *philosophe, char *message)
 {
-    pthread_mutex_lock(&philosophe->data->print_mutex);
-    if (!check_death(philosophe))
-        printf("%lld %d %s\n", (get_time() - philosophe->data->start_time), (philosophe->id + 1), message);
-    pthread_mutex_unlock(&philosophe->data->print_mutex);
+    int should_print = 0;
+    
+    pthread_mutex_lock(&philosophe->data->death_mutex);
+    should_print = !philosophe->data->is_dead;
+    pthread_mutex_unlock(&philosophe->data->death_mutex);
+    
+    if (should_print)
+    {
+        pthread_mutex_lock(&philosophe->data->print_mutex);
+        printf("%lld %d %s\n", (get_time() - philosophe->data->start_time), 
+               (philosophe->id + 1), message);
+        pthread_mutex_unlock(&philosophe->data->print_mutex);
+    }
 }
