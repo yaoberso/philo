@@ -15,19 +15,15 @@ int manger(t_philosophe *philosophes)
     pthread_mutex_lock(&philosophes->meal_mutex);
     philosophes->last_meal_time = get_time();
     pthread_mutex_unlock(&philosophes->meal_mutex);
-    usleep(philosophes->data->temp_rep * 1000);
     int time_slept = 0;
     while (time_slept < philosophes->data->temp_rep)
     {
         if (check_death(philosophes))
         {
+            relacher_fourchette(philosophes);
             return (0);
         }
         usleep(1000);
-        if (check_death(philosophes))
-        {
-            return (0);
-        }
         time_slept++;
     }
     philosophes->nb_meal++;
