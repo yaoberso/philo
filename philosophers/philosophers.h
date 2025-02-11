@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaoberso <yaoberso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yann <yann@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 13:12:07 by yaoberso          #+#    #+#             */
-/*   Updated: 2025/02/06 13:32:18 by yaoberso         ###   ########.fr       */
+/*   Updated: 2025/02/11 10:30:41 by yann             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_philosophe t_philosophe;
 
 typedef struct s_philo
 {
+    int             argc;
     int             nb_philo;
     int             temp_mort;
     int             temp_rep;
@@ -60,6 +61,8 @@ typedef struct s_philosophe
     t_philo         *data;
 }   t_philosophe;
 
+void free_philo(t_philo *philo);
+int check_all_meal(t_philo *philo);
 void print_message(t_philosophe *philosophe, char *message);
 void init_thread(t_philo *philo);
 void prendre_fourchette(t_philosophe *philosophe);
@@ -68,7 +71,7 @@ void dormir(t_philosophe *philosophes);
 int manger(t_philosophe *philosophes);
 void penser(t_philosophe *philosophes);
 int	ft_atoi(char *str);
-void init_philo(t_philo *philo, char **argv);
+void init_philo(t_philo *philo, char **argv, int argc);
 void init_philosophes(t_philo *philo);
 void *routine_philo(void *arg);
 int check_death(t_philosophe *philosophe);

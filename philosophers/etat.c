@@ -58,10 +58,10 @@ void prendre_fourchette(t_philosophe *philosophe)
     int gauche = philosophe->id;
     int droite = (philosophe->id + 1) % philosophe->data->nb_philo;
 
-    // Vérifie la mort avant chaque tentative de lock
     if (check_death(philosophe))
         return;
-
+    if (philosophe->id % 2 == 0)
+		usleep(philosophe->data->temp_rep * 500);
     if (gauche < droite)
     {
         pthread_mutex_lock(&philosophe->data->forks[gauche]);

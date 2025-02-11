@@ -9,28 +9,24 @@ void *routine_philo(void *arg)
     philosophes = (t_philosophe *)arg;
     if (!philosophes->data)
         return (NULL);
-    usleep(100 * (philosophes->id % 2));
+    if (philosophes->id % 2 == 0)
+        usleep(philosophes->data->temp_rep * 100);
     philosophes->last_meal_time = get_time();
     while (1)
     {
         if (check_death(philosophes))
             break;
-        if (philosophes->data->rep_min != -1 && 
-            philosophes->nb_meal >= philosophes->data->rep_min)
-            break; 
         penser(philosophes);
         if (check_death(philosophes))
-            break; 
+            break;
         prendre_fourchette(philosophes);
         if (!manger(philosophes))
+            break; 
+        if (philosophes->data->rep_min != -1 && check_all_meal(philosophes->data) && philosophes->data->argc == 6)
             break;   
         if (check_death(philosophes))
-            break;   
-        if (philosophes->data->rep_min == -1 || 
-            philosophes->nb_meal < philosophes->data->rep_min)
-        {
-            dormir(philosophes);
-        }
+            break;
+        dormir(philosophes);
     }
     return (NULL);
 }

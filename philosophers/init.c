@@ -1,15 +1,16 @@
 #include "philosophers.h"
 
-void init_philo(t_philo *philo, char **argv)
+void init_philo(t_philo *philo, char **argv, int argc)
 {
-	// philo = malloc(sizeof(t_philo));
 	if(!philo)
 		return ;
+	philo->argc = argc;
 	philo->nb_philo = ft_atoi(argv[1]);
 	philo->temp_mort = ft_atoi(argv[2]);
 	philo->temp_rep = ft_atoi(argv[3]);
 	philo->temp_som = ft_atoi(argv[4]);
-	philo->rep_min = ft_atoi(argv[5]);
+	if (argc == 6)
+		philo->rep_min = ft_atoi(argv[5]);
 	philo->start_time = get_time();
     philo->is_dead = 0;
 	philo->philosophes = malloc(sizeof(t_philosophe) * philo->nb_philo);
