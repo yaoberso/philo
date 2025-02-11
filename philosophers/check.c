@@ -16,8 +16,6 @@ int check_death(t_philosophe *philosophe)
         philosophe->data->is_dead = 1;
         pthread_mutex_unlock(&philosophe->meal_mutex);
         pthread_mutex_unlock(&philosophe->data->death_mutex);
-        
-        // On prend le mutex d'impression pour être sûr d'afficher le message de mort
         pthread_mutex_lock(&philosophe->data->print_mutex);
         printf("%lld %d %s\n", (get_time() - philosophe->data->start_time), 
                (philosophe->id + 1), "is dead");

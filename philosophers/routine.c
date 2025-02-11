@@ -26,7 +26,8 @@ void *routine_philo(void *arg)
             break;   
         if (check_death(philosophes))
             break;
-        dormir(philosophes);
+        if (philosophes->data->is_dead == 0)
+            dormir(philosophes);
     }
     return (NULL);
 }
