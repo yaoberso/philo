@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yann <yann@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yaoberso <yaoberso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 13:12:07 by yaoberso          #+#    #+#             */
-/*   Updated: 2025/02/11 10:30:41 by yann             ###   ########.fr       */
+/*   Updated: 2025/02/13 12:21:11 by yaoberso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_philosophe
     t_philo         *data;
 }   t_philosophe;
 
+int	check_alph_and_neg(char **argv);
 void free_philo(t_philo *philo);
 int check_all_meal(t_philo *philo);
 void print_message(t_philosophe *philosophe, char *message);

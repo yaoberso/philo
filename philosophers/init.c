@@ -1,9 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yaoberso <yaoberso@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/13 14:24:49 by yaoberso          #+#    #+#             */
+/*   Updated: 2025/02/13 14:25:57 by yaoberso         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philosophers.h"
 
 void init_philo(t_philo *philo, char **argv, int argc)
 {
 	if(!philo)
 		return ;
+	philo->rep_min = -1;
 	philo->argc = argc;
 	philo->nb_philo = ft_atoi(argv[1]);
 	philo->temp_mort = ft_atoi(argv[2]);
@@ -20,7 +33,6 @@ void init_philo(t_philo *philo, char **argv, int argc)
     	printf("Erreur d'allocation mémoire\n");
     	free(philo->philosophes);
     	free(philo->forks);
-    	free(philo);
     	return ;
 	}
 	pthread_mutex_init(&philo->print_mutex, NULL);

@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= philosophers
+NAME	= philo
 CFLAGS	= -Wall -Wextra -Werror -Iprintf -g -pthread
 CC		= gcc
 OBJS 	= $(SRCS:.c=.o)

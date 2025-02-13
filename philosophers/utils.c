@@ -71,6 +71,8 @@ void free_philo(t_philo *philo)
 
     pthread_mutex_destroy(&philo->print_mutex);
     pthread_mutex_destroy(&philo->death_mutex);
+    pthread_mutex_destroy(&philo->philosophes->mutex);
+    pthread_mutex_destroy(&philo->philosophes->meal_mutex);
     
     free(philo->forks);
     free(philo->philosophes);

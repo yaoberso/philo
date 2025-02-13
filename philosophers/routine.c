@@ -9,13 +9,13 @@ void *routine_philo(void *arg)
     philosophes = (t_philosophe *)arg;
     if (!philosophes->data)
         return (NULL);
-    if (philosophes->id % 2 == 0)
-        usleep(philosophes->data->temp_rep * 100);
+    pthread_mutex_lock(&philosophes->meal_mutex);
     philosophes->last_meal_time = get_time();
-    while (1)
+    pthread_mutex_unlock(&philosophes->meal_mutex);
+    if (philosophes->id % 2 == 0 && philosophes->data->nb_philo > 1)
+        usleep(100);
+    while (!check_death(philosophes))
     {
-        if (check_death(philosophes))
-            break;
         penser(philosophes);
         if (check_death(philosophes))
             break;
