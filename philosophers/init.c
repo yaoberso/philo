@@ -6,15 +6,15 @@
 /*   By: yaoberso <yaoberso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 14:24:49 by yaoberso          #+#    #+#             */
-/*   Updated: 2025/02/13 14:25:57 by yaoberso         ###   ########.fr       */
+/*   Updated: 2025/02/17 10:47:24 by yaoberso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void init_philo(t_philo *philo, char **argv, int argc)
+void	init_philo(t_philo *philo, char **argv, int argc)
 {
-	if(!philo)
+	if (!philo)
 		return ;
 	philo->rep_min = -1;
 	philo->argc = argc;
@@ -25,60 +25,59 @@ void init_philo(t_philo *philo, char **argv, int argc)
 	if (argc == 6)
 		philo->rep_min = ft_atoi(argv[5]);
 	philo->start_time = get_time();
-    philo->is_dead = 0;
+	philo->is_dead = 0;
 	philo->philosophes = malloc(sizeof(t_philosophe) * philo->nb_philo);
 	philo->forks = malloc(sizeof(pthread_mutex_t) * philo->nb_philo);
 	if (!philo->philosophes || !philo->forks)
 	{
-    	printf("Erreur d'allocation mémoire\n");
-    	free(philo->philosophes);
-    	free(philo->forks);
-    	return ;
+		printf("Erreur d'allocation mémoire\n");
+		free(philo->philosophes);
+		free(philo->forks);
+		return ;
 	}
 	pthread_mutex_init(&philo->print_mutex, NULL);
-    pthread_mutex_init(&philo->death_mutex, NULL);
+	pthread_mutex_init(&philo->death_mutex, NULL);
 }
 
-void init_philosophes(t_philo *philo)
+void	init_philosophes(t_philo *philo)
 {
-	int i;
-
+	int	i;
 
 	i = 0;
-	while(i < philo->nb_philo)
+	while (i < philo->nb_philo)
 	{
 		pthread_mutex_init(&philo->forks[i], NULL);
 		i++;
 	}
 	i = 0;
-	while(i < philo->nb_philo)
+	while (i < philo->nb_philo)
 	{
 		philo->philosophes[i].id = i;
-    	philo->philosophes[i].nb_meal = 0;
-    	philo->philosophes[i].last_meal_time = get_time();
-    	philo->philosophes[i].data = philo;
-    	pthread_mutex_init(&philo->philosophes[i].mutex, NULL);
-        pthread_mutex_init(&philo->philosophes[i].meal_mutex, NULL);
+		philo->philosophes[i].nb_meal = 0;
+		philo->philosophes[i].last_meal_time = get_time();
+		philo->philosophes[i].data = philo;
+		pthread_mutex_init(&philo->philosophes[i].mutex, NULL);
+		pthread_mutex_init(&philo->philosophes[i].meal_mutex, NULL);
 		i++;
 	}
 }
 
-void init_thread(t_philo *philo)
+void	init_thread(t_philo *philo)
 {
-    int i;
+	int		i;
 
-    i = 0;
-    while (i < philo->nb_philo)
-    {
-        pthread_create(&philo->philosophes[i].thread, NULL, routine_philo, 
-                      (void*)&philo->philosophes[i]);
-        usleep(100);
-        i++;
-    }
-    i = 0;
-    while (i < philo->nb_philo)
-    {
-        pthread_join(philo->philosophes[i].thread, NULL);
-        i++;
-    }
+	i = 0;
+	while (i < philo->nb_philo)
+	{
+		pthread_create(&philo->philosophes[i].thread, NULL, routine_philo,
+			(void *)&philo->philosophes[i]);
+		usleep(100);
+		i++;
+	}
+	i = 0;
+	while (i < philo->nb_philo)
+	{
+		pthread_join(philo->philosophes[i].thread, NULL);
+		i++;
+	}
 }

@@ -22,6 +22,7 @@ SRCS	=	main.c \
 			etat.c \
 			routine.c \
 			init.c \
+			utils2.c \
 
 # REGLES
 all: $(NAME)
